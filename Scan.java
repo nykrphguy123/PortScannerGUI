@@ -31,20 +31,24 @@ public class Scan {
         first = num1;
         second = num2;
 
-
-        public List<ScanResult> printInfo () throws Exception {
-
-            for (final Future<ScanResult> f : futures) {
-                if (f.get().getOpen()) {
-                    System.out.println("Port " + f.get().getPort() + " is open!");
-
-                }
-
-            }
-
-            return futures;
-        }
     }
+
+
+        public String printInfo () throws Exception {
+
+            String output = "";
+
+           for (final Future<ScanResult> f : futures) {
+                if (f.get().getOpen()) {
+                  output = "Port " + f.get().getPort() + " is open!";
+
+               }
+
+         }
+
+            return output;
+        }
+
 
     public void startScan(String host) throws Exception {
 
@@ -56,6 +60,8 @@ public class Scan {
         }
 
         es.shutdown();
+
+        printInfo();
 
             }
 

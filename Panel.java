@@ -56,12 +56,7 @@ public class Panel extends JPanel {
 
                 try {
                    sobj.startScan(hostname);
-
-
-
-
-
-
+                   sobj.printInfo();
 
                 } catch (Exception e) {
                     e.printStackTrace();
