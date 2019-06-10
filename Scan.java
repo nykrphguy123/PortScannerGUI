@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-
 public class Scan {
 
     private static int first, second;
@@ -21,14 +20,24 @@ public class Scan {
     public void setRange() {
 
         String port1 = JOptionPane.showInputDialog(null, "Enter the first port range");
-        Integer num1 = Integer.parseInt(port1);
 
-        String port2 = JOptionPane.showInputDialog(null, "Enter the second port range");
-        Integer num2 = Integer.parseInt(port2);
+        if (port1 != null) {
 
-        first = num1;
-        second = num2;
+            Integer num1 = Integer.parseInt(port1);
 
+            String port2 = JOptionPane.showInputDialog(null, "Enter the second port range");
+
+            if (port2 != null) {
+
+                Integer num2 = Integer.parseInt(port2);
+
+                first = num1;
+                second = num2;
+
+            } else
+
+                System.out.println("***WARNING*** 2nd Port Range not set!");
+        }
     }
 
         public void printResults () throws Exception {
