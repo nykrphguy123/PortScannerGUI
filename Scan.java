@@ -1,14 +1,10 @@
 import javax.swing.*;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.*;
-import java.util.concurrent.Executor.*;
-import java.util.concurrent.ExecutorService.*;
-import java.util.concurrent.Future.*;
+
 
 public class Scan {
 
@@ -17,9 +13,11 @@ public class Scan {
 
     public Scan() {
 
-
     }
 
+    /**
+    Sets the range of the port scanner
+     */
     public void setRange() {
 
         String port1 = JOptionPane.showInputDialog(null, "Enter the first port range");
@@ -31,20 +29,22 @@ public class Scan {
         first = num1;
         second = num2;
 
-
-        public List<ScanResult> printInfo () throws Exception {
-
-            for (final Future<ScanResult> f : futures) {
-                if (f.get().getOpen()) {
-                    System.out.println("Port " + f.get().getPort() + " is open!");
-
-                }
-
-            }
-
-            return futures;
-        }
     }
+
+        public void printResults () throws Exception {
+
+           for (final Future<ScanResult> f : futures) {
+               if (f.get().getOpen()) {
+
+
+                  System.out.println("Port " + f.get().getPort() + " is open!");
+                   }
+
+               }
+
+
+           }
+
 
     public void startScan(String host) throws Exception {
 
@@ -56,6 +56,8 @@ public class Scan {
         }
 
         es.shutdown();
+
+        printResults();
 
             }
 

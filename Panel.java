@@ -1,7 +1,7 @@
 import javax.swing.*;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintStream;
 
 /**
  * This class will provide space for the application in which we can attach any
@@ -17,7 +17,7 @@ public class Panel extends JPanel {
     private JButton scanbutton;
     private JScrollPane scroller;
     private JTextArea textbox;
-
+    private PrintStream standardOut;
 
     public Panel() {
 
@@ -25,7 +25,14 @@ public class Panel extends JPanel {
 
         textbox = new JTextArea();
         textbox.setEditable(false);
+        PrintStream printStream = new PrintStream(new OutputStreamInfo(textbox));
         textbox.setBounds(1, 22, 283, 340);
+
+        standardOut = System.out; //keeps reference of standard output stream
+
+        // this is to re-assign the standard and error output stream
+        System.setOut(printStream);
+        System.setErr(printStream);
 
         scroller = new JScrollPane(textbox);
         scroller.setBounds(1, 22, 283, 340);
@@ -45,6 +52,9 @@ public class Panel extends JPanel {
 
     }
 
+    /**
+     * Scan button listener event when pressed, scans host for open ports then displays it to the textarea
+     */
     private class ScanButton implements ActionListener {
 
             public void actionPerformed(ActionEvent event) {
@@ -55,13 +65,10 @@ public class Panel extends JPanel {
 
 
                 try {
-                   sobj.startScan(hostname);
-
-
-
-
-
-
+                   textbox.selectAll();
+                   textbox.replaceSelection("");
+                    System.out.println("Finished Scanning " + hostname + "!");
+                    sobj.startScan(hostname);
 
                 } catch (Exception e) {
                     e.printStackTrace();
