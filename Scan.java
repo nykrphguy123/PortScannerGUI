@@ -13,6 +13,7 @@ import java.util.concurrent.Future.*;
 public class Scan {
 
     private static int first, second;
+    private ArrayList<String> results;
     private List<Future<ScanResult>> futures = new ArrayList<>();
 
     public Scan() {
@@ -20,6 +21,9 @@ public class Scan {
 
     }
 
+    /**
+    Sets the range of the port scanner
+     */
     public void setRange() {
 
         String port1 = JOptionPane.showInputDialog(null, "Enter the first port range");
@@ -33,21 +37,22 @@ public class Scan {
 
     }
 
+        //making this void prints it out in the console
 
-        public String printInfo () throws Exception {
 
-            String output = "";
+        public void printInfo () throws Exception {
 
            for (final Future<ScanResult> f : futures) {
-                if (f.get().getOpen()) {
-                  output = "Port " + f.get().getPort() + " is open!";
+               if (f.get().getOpen()) {
+
+
+                  System.out.println("Port " + f.get().getPort() + " is open!");
+                   }
 
                }
 
-         }
 
-            return output;
-        }
+           }
 
 
     public void startScan(String host) throws Exception {
