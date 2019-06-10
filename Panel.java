@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
@@ -31,6 +30,7 @@ public class Panel extends JPanel {
 
         standardOut = System.out; //keeps reference of standard output stream
 
+        // this is to re-assign the standard and error output stream
         System.setOut(printStream);
         System.setErr(printStream);
 
@@ -52,6 +52,9 @@ public class Panel extends JPanel {
 
     }
 
+    /**
+     * Scan button listener event when pressed, scans host for open ports then displays it to the textarea
+     */
     private class ScanButton implements ActionListener {
 
             public void actionPerformed(ActionEvent event) {

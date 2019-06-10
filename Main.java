@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.*;
 import javax.swing.JFrame;
 
@@ -49,6 +46,9 @@ public class Main {
     }
 
 
+    /**
+     * Basically runs the program
+     */
     public static void main(String[] args) {
 
         Main main = new Main();
@@ -57,7 +57,9 @@ public class Main {
     }
 
 
-
+    /**
+     * Menu listener that allows the user to specify the range of ports to scan
+     */
     private class MenuListener implements ActionListener {
 
 

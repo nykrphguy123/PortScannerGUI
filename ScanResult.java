@@ -8,7 +8,6 @@ public class ScanResult {
         this.port = p;
         this.isOpen = o;
 
-
     }
 
   public boolean getOpen() {

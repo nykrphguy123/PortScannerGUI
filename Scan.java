@@ -1,23 +1,17 @@
 import javax.swing.*;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.*;
-import java.util.concurrent.Executor.*;
-import java.util.concurrent.ExecutorService.*;
-import java.util.concurrent.Future.*;
+
 
 public class Scan {
 
     private static int first, second;
-    private ArrayList<String> results;
     private List<Future<ScanResult>> futures = new ArrayList<>();
 
     public Scan() {
-
 
     }
 
@@ -37,10 +31,7 @@ public class Scan {
 
     }
 
-        //making this void prints it out in the console
-
-
-        public void printInfo () throws Exception {
+        public void printResults () throws Exception {
 
            for (final Future<ScanResult> f : futures) {
                if (f.get().getOpen()) {
@@ -66,7 +57,7 @@ public class Scan {
 
         es.shutdown();
 
-        printInfo();
+        printResults();
 
             }
 

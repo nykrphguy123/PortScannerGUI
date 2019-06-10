@@ -3,6 +3,10 @@ import java.io.OutputStream;
 
 import javax.swing.JTextArea;
 
+/**
+ * This class extends from OutputStream to redirect output to JTextArea
+ */
+
 public class OutputStreamInfo extends OutputStream {
 
     private JTextArea textarea;
