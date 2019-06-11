@@ -1,13 +1,9 @@
 import javax.swing.*;
 import javax.swing.JFrame;
-import java.util.concurrent.ExecutorService;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.concurrent.Executors;
 
 public class Main {
-
 
     private JMenuBar menubar;
     private JMenu menu;
