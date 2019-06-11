@@ -40,25 +40,10 @@ public class Scan {
         }
     }
 
-        public void printResults () throws Exception {
-
-           for (final Future<ScanResult> f : futures) {
-               if (f.get().getOpen()) {
-
-
-                  System.out.println("Port " + f.get().getPort() + " is open!");
-                   }
-
-               }
-
-
-           }
-
 
     public void startScan(String host) throws Exception {
 
         final ExecutorService es = Executors.newFixedThreadPool(100);
-
 
         for (int i = first; i <= second; i++) {
             futures.add(portScan(es, host, i));
@@ -66,7 +51,12 @@ public class Scan {
 
         es.shutdown();
 
-        printResults();
+        for (final Future<ScanResult> f : futures) {
+            if (f.get().getOpen()) {
+
+                System.out.println("Port " + f.get().getPort() + " is open!");
+            }
+        }
 
             }
 
@@ -100,7 +90,7 @@ public class Scan {
 
                          }
         );
-    }
+}
 }
 
 

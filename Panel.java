@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+import javax.swing.text.DefaultCaret;
+import java.util.regex.*;
 
 /**
  * This class will provide space for the application in which we can attach any
@@ -18,10 +20,13 @@ public class Panel extends JPanel {
     private JScrollPane scroller;
     private JTextArea textbox;
     private PrintStream standardOut;
+    private final String ipAddrPattern;
 
     public Panel() {
 
         setLayout(null);
+
+        ipAddrPattern = ("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
 
         textbox = new JTextArea();
         textbox.setEditable(false);
@@ -57,30 +62,53 @@ public class Panel extends JPanel {
      */
     private class ScanButton implements ActionListener {
 
-            public void actionPerformed(ActionEvent event) {
+        public void actionPerformed(ActionEvent event) {
 
-                Scan sobj = new Scan();
+            Scan sobj = new Scan();
 
-                String hostname = addressbox.getText();
+            String hostname = addressbox.getText().trim();
 
+            Pattern pattern = Pattern.compile(ipAddrPattern);
+
+            Matcher matcher = pattern.matcher(hostname);
+
+            boolean matches = matcher.matches();
+
+            if (matches == false) {
+
+                System.out.println("Not a valid address");
+
+            } else
 
                 try {
-                   textbox.selectAll();
-                   textbox.replaceSelection("");
+
+                    textbox.selectAll();
+                    textbox.replaceSelection("");
+
+                    //This is to force the scrollbar to go to the top
+                    DefaultCaret caret = (DefaultCaret) textbox.getCaret();
+                    caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+
                     System.out.println("Finished Scanning " + hostname + "!");
                     sobj.startScan(hostname);
 
                 } catch (Exception e) {
                     e.printStackTrace();
+
                 }
-
-
-
             }
+        }
+
+        {
+
+
+        }
 
 
     }
-}
+
+
+
 
 
 

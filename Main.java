@@ -1,15 +1,17 @@
 import javax.swing.*;
 import javax.swing.JFrame;
+import java.util.concurrent.ExecutorService;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.Executors;
 
 public class Main {
 
 
     private JMenuBar menubar;
     private JMenu menu;
-    private JMenuItem option;
+    private JMenuItem option, option2;
     private JFrame frame;
     private JTextArea textbox;
     private JScrollPane scroll;
@@ -23,9 +25,11 @@ public class Main {
         menubar = new JMenuBar();
         menu = new JMenu("Options");
         option = new JMenuItem("Port Range");
+        option2 = new JMenuItem("Host Resolve");
 
         menubar.add(menu);
         menu.add(option);
+        menu.add(option2);
 
         frame = new JFrame("Port Scanner");
 
@@ -39,6 +43,7 @@ public class Main {
         frame.setSize(300, 410);
 
         option.addActionListener(new MenuListener());
+        option2.addActionListener(new MenuListener2());
 
         frame.setVisible(true);
 
@@ -56,26 +61,42 @@ public class Main {
 
     }
 
-
-    /**
-     * Menu listener that allows the user to specify the range of ports to scan
-     */
-    private class MenuListener implements ActionListener {
-
+    private class MenuListener2 implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
 
-            Scan scan = new Scan();
-            scan.setRange();
+            String hostname = JOptionPane.showInputDialog(null, "Enter a hostname");
 
+            if (hostname != null) {
 
+                HostResolve hr = new HostResolve(hostname);
+                hr.testResolve(hostname);
+
+            }
+        }
         }
 
+        /**
+         * Menu listener that allows the user to specify the range of ports to scan
+         */
+        private class MenuListener implements ActionListener {
+
+
+            public void actionPerformed(ActionEvent event) {
+
+
+                Scan scan = new Scan();
+                scan.setRange();
+
+
+            }
 
 
         }
 
     }
+
+
 
 
 
