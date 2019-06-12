@@ -34,7 +34,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(panel);
-        frame.setSize(300, 410);
+        frame.setSize(300, 424);
 
         option.addActionListener(new MenuListener());
         option2.addActionListener(new MenuListener2());
