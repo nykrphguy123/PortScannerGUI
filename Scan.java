@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 
 public class Scan {
 
-    private static int first, second;
+    private static Integer first, second;
     private List<Future<ScanResult>> futures = new ArrayList<>();
 
     public Scan() {
@@ -15,35 +15,39 @@ public class Scan {
     }
 
     /**
-    Sets the range of the port scanner
+     * Sets the range of the port scanner
      */
-    public void setRange() {
+    public void setRange(String port1, String port2) {
 
-        String port1 = JOptionPane.showInputDialog(null, "Enter the first port range");
+        Integer num1 = Integer.parseInt(port1);
+        Integer num2 = Integer.parseInt(port2);
 
-        if (port1 != null) {
+        first = num1;
+        second = num2;
 
-            Integer num1 = Integer.parseInt(port1);
-
-            String port2 = JOptionPane.showInputDialog(null, "Enter the second port range");
-
-            if (port2 != null) {
-
-                Integer num2 = Integer.parseInt(port2);
-
-                first = num1;
-                second = num2;
-
-            } else
-
-                System.out.println("***WARNING*** 2nd Port Range not set!");
         }
-    }
 
+        public boolean isRangeSet() {
 
-    public void startScan(String host) throws Exception {
+            boolean which;
+
+            if (first == null) {
+                which = false;
+            } else
+                which = true;
+
+            return which;
+        }
+
+    public void startScan(String host) throws Exception  {
 
         final ExecutorService es = Executors.newFixedThreadPool(100);
+
+        if (isRangeSet() == false) {
+
+            System.out.println("You did not set a port range!");
+
+        } else
 
         for (int i = first; i <= second; i++) {
             futures.add(portScan(es, host, i));
@@ -58,7 +62,7 @@ public class Scan {
             }
         }
 
-            }
+    }
 
 
     public static Future<ScanResult> portScan(final ExecutorService es, String host, int port) {

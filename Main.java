@@ -14,9 +14,7 @@ public class Main {
 
     public Main() {
 
-
         Panel panel = new Panel();
-
 
         menubar = new JMenuBar();
         menu = new JMenu("Options");
@@ -27,7 +25,7 @@ public class Main {
         menu.add(option);
         menu.add(option2);
 
-        frame = new JFrame("Port Scanner");
+        frame = new JFrame("Orbit Scanner v1.0");
 
         frame.setJMenuBar(menubar);
 
@@ -43,9 +41,7 @@ public class Main {
 
         frame.setVisible(true);
 
-
     }
-
 
     /**
      * Basically runs the program
@@ -53,7 +49,6 @@ public class Main {
     public static void main(String[] args) {
 
         Main main = new Main();
-
 
     }
 
@@ -77,16 +72,15 @@ public class Main {
          */
         private class MenuListener implements ActionListener {
 
-
             public void actionPerformed(ActionEvent event) {
 
+                String port1 = JOptionPane.showInputDialog(null, "Enter the first port range");
+                String port2 = JOptionPane.showInputDialog(null, "Enter the second port range");
 
                 Scan scan = new Scan();
-                scan.setRange();
-
+                scan.setRange(port1, port2);
 
             }
-
 
         }
 

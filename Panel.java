@@ -8,9 +8,6 @@ import java.util.regex.*;
 /**
  * This class will provide space for the application in which we can attach any
  * other component, including other panels
- *
- * @author (Kristian Hernandez)
- * @version (1.0)
  */
 public class Panel extends JPanel {
 
@@ -76,7 +73,7 @@ public class Panel extends JPanel {
 
             if (matches == false) {
 
-                System.out.println("Not a valid address");
+                System.out.println(hostname + " is not a valid address");
 
             } else
 
@@ -89,7 +86,11 @@ public class Panel extends JPanel {
                     DefaultCaret caret = (DefaultCaret) textbox.getCaret();
                     caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 
-                    System.out.println("Finished Scanning " + hostname + "!");
+                    if (sobj.isRangeSet() == true) {
+
+                        System.out.println("Finished scanning " + hostname + "!");
+
+                    }
                     sobj.startScan(hostname);
 
                 } catch (Exception e) {
