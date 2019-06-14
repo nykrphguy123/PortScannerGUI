@@ -19,11 +19,19 @@ public class Scan {
      */
     public void setRange(String port1, String port2) {
 
-        Integer num1 = Integer.parseInt(port1);
-        Integer num2 = Integer.parseInt(port2);
+        try {
 
-        first = num1;
-        second = num2;
+            Integer num1 = Integer.parseInt(port1);
+            Integer num2 = Integer.parseInt(port2);
+
+            second = num2;
+            first = num1;
+
+        } catch (NumberFormatException e) {
+
+            System.out.println("Please specify a port range!");
+
+        }
 
         }
 
