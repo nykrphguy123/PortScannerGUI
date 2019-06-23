@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 
 public class Scan {
 
-    private static int first, second;
+    private static Integer first, second;
     private List<Future<ScanResult>> futures = new ArrayList<>();
 
     public Scan() {
@@ -15,50 +15,47 @@ public class Scan {
     }
 
     /**
-    Sets the range of the port scanner
+     * Sets the range of the port scanner
      */
-    public void setRange() {
+    public void setRange(String port1, String port2) {
 
-        String port1 = JOptionPane.showInputDialog(null, "Enter the first port range");
-
-        if (port1 != null) {
+        try {
 
             Integer num1 = Integer.parseInt(port1);
+            Integer num2 = Integer.parseInt(port2);
 
-            String port2 = JOptionPane.showInputDialog(null, "Enter the second port range");
+            second = num2;
+            first = num1;
 
-            if (port2 != null) {
+        } catch (NumberFormatException e) {
 
-                Integer num2 = Integer.parseInt(port2);
+            System.out.println("Please specify a port range!");
 
-                first = num1;
-                second = num2;
-
-            } else
-
-                System.out.println("***WARNING*** 2nd Port Range not set!");
         }
-    }
 
-        public void printResults () throws Exception {
+        }
 
-           for (final Future<ScanResult> f : futures) {
-               if (f.get().getOpen()) {
+        public boolean isRangeSet() {
 
+            boolean which;
 
-                  System.out.println("Port " + f.get().getPort() + " is open!");
-                   }
+            if (first == null) {
+                which = false;
+            } else
+                which = true;
 
-               }
+            return which;
+        }
 
-
-           }
-
-
-    public void startScan(String host) throws Exception {
+    public void startScan(String host) throws Exception  {
 
         final ExecutorService es = Executors.newFixedThreadPool(100);
 
+        if (isRangeSet() == false) {
+
+            System.out.println("You did not set a port range!");
+
+        } else
 
         for (int i = first; i <= second; i++) {
             futures.add(portScan(es, host, i));
@@ -66,9 +63,14 @@ public class Scan {
 
         es.shutdown();
 
-        printResults();
+        for (final Future<ScanResult> f : futures) {
+            if (f.get().getOpen()) {
 
+                System.out.println("Port " + f.get().getPort() + " is open!");
             }
+        }
+
+    }
 
 
     public static Future<ScanResult> portScan(final ExecutorService es, String host, int port) {
@@ -100,7 +102,7 @@ public class Scan {
 
                          }
         );
-    }
+}
 }
 
 
